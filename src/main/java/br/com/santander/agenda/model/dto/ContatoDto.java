@@ -1,38 +1,29 @@
-package br.com.santander.agenda.model;
+package br.com.santander.agenda.model.dto;
 
-import javax.persistence.*;
+import br.com.santander.agenda.model.Contato;
+import br.com.santander.agenda.model.Email;
+import br.com.santander.agenda.model.Endereco;
+import br.com.santander.agenda.model.Telefone;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Contato {
+public class ContatoDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     private String nome;
     private String sobrenome;
-    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
     private String apelido;
-    @OneToMany(mappedBy = "contato",cascade = CascadeType.ALL)
     List<Telefone> telefones = new ArrayList<>();
-    @OneToMany(mappedBy = "contato",cascade = CascadeType.ALL)
     List<Endereco> enderecos = new ArrayList<>();
-    @OneToMany(mappedBy = "contato",cascade = CascadeType.ALL)
     List<Email> emails = new ArrayList<>();
 
-    public Contato(String nome, String sobrenome, LocalDate dataNascimento) {
+    public ContatoDto(String nome, String sobrenome, LocalDate dataNascimento) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNascimento;
     }
-
-    public Contato() {
-    }
-
-    public Integer getId() {return id;}
 
     public String getNome() {
         return nome;
@@ -60,5 +51,9 @@ public class Contato {
 
     public List<Email> getEmails() {
         return emails;
+    }
+
+    public Contato converte()  {
+        return new Contato(nome, sobrenome, dataNascimento);
     }
 }

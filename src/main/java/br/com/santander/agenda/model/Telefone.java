@@ -1,6 +1,6 @@
 package br.com.santander.agenda.model;
 
-import br.com.santander.agenda.enumeration.AgendaEnumeration;
+import br.com.santander.agenda.enumeration.TelefoneEnumeration;
 
 import javax.persistence.*;
 
@@ -10,11 +10,11 @@ public class Telefone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String numeroTelefone;
-    private AgendaEnumeration tipo;
+    private TelefoneEnumeration tipo;
     @ManyToOne
     private Contato contato;
 
-    public Telefone(String numeroTelefone, AgendaEnumeration tipo) {
+    public Telefone(String numeroTelefone, TelefoneEnumeration tipo) {
         this.numeroTelefone = numeroTelefone;
         this.tipo = tipo;
     }
@@ -26,7 +26,7 @@ public class Telefone {
         return numeroTelefone;
     }
 
-    public AgendaEnumeration getTipo() {
+    public TelefoneEnumeration getTipo() {
         return tipo;
     }
 

@@ -1,6 +1,6 @@
 package br.com.santander.agenda.model;
 
-import br.com.santander.agenda.enumeration.AgendaEnumeration;
+import br.com.santander.agenda.enumeration.EnderecoEnumeration;
 
 import javax.persistence.*;
 
@@ -13,11 +13,11 @@ public class Endereco {
     private String rua;
     private String numero;
     private String cidade;
-    private AgendaEnumeration tipo;
+    private EnderecoEnumeration tipo;
     @ManyToOne
     private Contato contato;
 
-    public Endereco(String rua, String numero, String cidade, AgendaEnumeration tipo) {
+    public Endereco(String rua, String numero, String cidade, EnderecoEnumeration tipo) {
         this.rua = rua;
         this.numero = numero;
         this.cidade = cidade;
@@ -43,7 +43,7 @@ public class Endereco {
         return cidade;
     }
 
-    public AgendaEnumeration getTipo() {
+    public EnderecoEnumeration getTipo() {
         return tipo;
     }
 
