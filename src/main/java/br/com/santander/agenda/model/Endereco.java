@@ -50,4 +50,5 @@ public class Endereco {
     public Contato getContato() {
         return contato;
     }
+
 }

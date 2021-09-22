@@ -1,8 +1,11 @@
 package br.com.santander.agenda.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,10 +26,11 @@ public class Contato {
     @OneToMany(mappedBy = "contato",cascade = CascadeType.ALL)
     List<Email> emails = new ArrayList<>();
 
-    public Contato(String nome, String sobrenome, LocalDate dataNascimento) {
+    public Contato(String nome, String sobrenome, LocalDate dataNascimento, List<Telefone> telefones) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNascimento;
+        this.telefones = telefones;
     }
 
     public Contato() {
@@ -61,4 +65,5 @@ public class Contato {
     public List<Email> getEmails() {
         return emails;
     }
+
 }

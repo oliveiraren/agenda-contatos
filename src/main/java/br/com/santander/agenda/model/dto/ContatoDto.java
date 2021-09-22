@@ -54,6 +54,6 @@ public class ContatoDto {
     }
 
     public Contato converte()  {
-        return new Contato(nome, sobrenome, dataNascimento);
+        return new Contato(nome, sobrenome, dataNascimento, telefones);
     }
 }

@@ -1,5 +1,6 @@
 package br.com.santander.agenda.model;
 
+import br.com.santander.agenda.enumeration.EmailEnumeration;
 import br.com.santander.agenda.enumeration.TelefoneEnumeration;
 
 import javax.persistence.*;
@@ -10,11 +11,11 @@ public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String enderecoEmail;
-    private TelefoneEnumeration tipo;
+    private EmailEnumeration tipo;
     @ManyToOne
     private Contato contato;
 
-    public Email(String enderecoEmail, TelefoneEnumeration tipo) {
+    public Email(String enderecoEmail, EmailEnumeration tipo) {
         this.enderecoEmail = enderecoEmail;
         this.tipo = tipo;
     }
@@ -26,7 +27,7 @@ public class Email {
         return enderecoEmail;
     }
 
-    public TelefoneEnumeration getTipo() {
+    public EmailEnumeration getTipo() {
         return tipo;
     }
 
