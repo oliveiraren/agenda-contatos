@@ -19,10 +19,11 @@ public class ContatoDto {
     List<Endereco> enderecos = new ArrayList<>();
     List<Email> emails = new ArrayList<>();
 
-    public ContatoDto(String nome, String sobrenome, LocalDate dataNascimento) {
+    public ContatoDto(String nome, String sobrenome, LocalDate dataNascimento, List<Telefone> telefones) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNascimento;
+        this.telefones = telefones;
     }
 
     public String getNome() {
@@ -54,6 +55,8 @@ public class ContatoDto {
     }
 
     public Contato converte()  {
-        return new Contato(nome, sobrenome, dataNascimento, telefones);
+        Contato contato = new Contato(nome, sobrenome, dataNascimento);
+        telefones.forEach(t -> contato.adicionaTelefone(t));
+        return contato;
     }
 }

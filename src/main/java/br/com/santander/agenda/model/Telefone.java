@@ -1,7 +1,7 @@
 package br.com.santander.agenda.model;
 
 import br.com.santander.agenda.enumeration.TelefoneEnumeration;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -10,13 +10,14 @@ public class Telefone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Column(name = "numero_telefone")
     private String numeroTelefone;
     @Enumerated(EnumType.STRING)
     private TelefoneEnumeration tipo;
     @ManyToOne
     @JoinColumn(name = "contato_id")
-    @JsonIgnore
+    @JsonBackReference
     private Contato contato;
 
     public Telefone(String numeroTelefone, TelefoneEnumeration tipo, Contato contato) {
@@ -25,7 +26,11 @@ public class Telefone {
         this.contato = contato;
     }
 
-    public Telefone() {
+    protected Telefone() {
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getNumeroTelefone() {
@@ -39,4 +44,9 @@ public class Telefone {
     public Contato getContato() {
         return contato;
     }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
 }

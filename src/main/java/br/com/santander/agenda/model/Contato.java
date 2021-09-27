@@ -1,6 +1,6 @@
 package br.com.santander.agenda.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,20 +20,22 @@ public class Contato {
     private LocalDate dataNascimento;
     private String apelido;
     @OneToMany(mappedBy = "contato",cascade = CascadeType.ALL)
+    @JsonManagedReference
     List<Telefone> telefones = new ArrayList<>();
     @OneToMany(mappedBy = "contato",cascade = CascadeType.ALL)
+    @JsonManagedReference
     List<Endereco> enderecos = new ArrayList<>();
     @OneToMany(mappedBy = "contato",cascade = CascadeType.ALL)
+    @JsonManagedReference
     List<Email> emails = new ArrayList<>();
 
-    public Contato(String nome, String sobrenome, LocalDate dataNascimento, List<Telefone> telefones) {
+    public Contato(String nome, String sobrenome, LocalDate dataNascimento) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNascimento;
-        this.telefones = telefones;
     }
 
-    public Contato() {
+    protected Contato() {
     }
 
     public Integer getId() {return id;}
@@ -64,6 +66,16 @@ public class Contato {
 
     public List<Email> getEmails() {
         return emails;
+    }
+
+    public void setTelefones(Collection<Telefone> telefones) {
+
+        telefones.forEach(t -> adicionaTelefone(t));
+    }
+
+    public void adicionaTelefone(Telefone telefone) {
+        telefone.setContato(this);
+        this.telefones.add(telefone);
     }
 
 }

@@ -1,6 +1,7 @@
 package br.com.santander.agenda.model;
 
 import br.com.santander.agenda.enumeration.EnderecoEnumeration;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ public class Endereco {
     private String cidade;
     private EnderecoEnumeration tipo;
     @ManyToOne
+    @JsonBackReference
     private Contato contato;
 
     public Endereco(String rua, String numero, String cidade, EnderecoEnumeration tipo) {
@@ -24,7 +26,7 @@ public class Endereco {
         this.tipo = tipo;
     }
 
-    public Endereco() {
+    protected Endereco() {
     }
 
     public Integer getId() {
