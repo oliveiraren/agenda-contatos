@@ -2,6 +2,7 @@ package br.com.santander.agenda.controller;
 
 import br.com.santander.agenda.model.Contato;
 import br.com.santander.agenda.model.dto.ContatoDto;
+import br.com.santander.agenda.producer.ContatoProducer;
 import br.com.santander.agenda.service.ContatoServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,11 @@ public class ContatoController {
 
     private final ContatoServiceImpl contatoServiceImpl;
 
-    public ContatoController(ContatoServiceImpl contatoServiceImpl){
+    private final ContatoProducer contatoProducer;
+
+    public ContatoController(ContatoServiceImpl contatoServiceImpl, ContatoProducer contatoProducer){
         this.contatoServiceImpl = contatoServiceImpl;
+        this.contatoProducer = contatoProducer;
     }
 
     @PostMapping
@@ -25,6 +29,7 @@ public class ContatoController {
 
         Contato contato = contatoServiceImpl.cadastrar(contatoDto);
         URI uri = UriComponentsBuilder.fromPath("contatos/{id}").buildAndExpand(contato.getId()).toUri();
+        contatoProducer.envia(contato);
         return ResponseEntity.created(uri).body(contato);
     }
 
